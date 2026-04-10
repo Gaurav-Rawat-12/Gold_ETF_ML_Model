@@ -1,0 +1,1019 @@
+source /home/gaurav/MachineLearning2026_Gaurav/venv/bin/activate<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gold BeES · Alpha Command Center</title>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://unpkg.com/lightweight-charts/dist/lightweight-charts.standalone.development.js"></script>
+
+    <style>
+        /* ==========================================
+           THEME DEFINITIONS (CSS Custom Properties)
+           ========================================== */
+
+        /* Theme 1: Dark (Default) */
+        [data-theme="dark"] {
+            --bg-primary: #0a0a0b;
+            --bg-header: rgba(16, 16, 18, 0.95);
+            --bg-window: rgba(18, 18, 20, 0.92);
+            --bg-window-bar: rgba(255, 255, 255, 0.03);
+            --bg-tag: rgba(255, 255, 255, 0.08);
+            --bg-bar-track: rgba(255, 255, 255, 0.05);
+            --text-primary: #e5e5e5;
+            --text-secondary: rgba(255, 255, 255, 0.4);
+            --text-tertiary: rgba(255, 255, 255, 0.3);
+            --text-dim: rgba(255, 255, 255, 0.35);
+            --text-very-dim: rgba(255, 255, 255, 0.2);
+            --border-subtle: rgba(255, 255, 255, 0.06);
+            --border-hover: rgba(255, 255, 255, 0.12);
+            --border-resize: rgba(255, 255, 255, 0.2);
+            --shadow-window: 0 8px 32px rgba(0, 0, 0, 0.5);
+            --accent-gold: #D4AF37;
+            --accent-green: #22c55e;
+            --accent-red: #ef4444;
+            --accent-blue: #60a5fa;
+            --grid-line: rgba(255, 255, 255, 0.03);
+            --chart-text: rgba(255,255,255,0.3);
+            --macro-border: rgba(255,255,255,0.06);
+        }
+
+        /* Theme 2: Light */
+        [data-theme="light"] {
+            --bg-primary: #f5f5f7;
+            --bg-header: rgba(255, 255, 255, 0.95);
+            --bg-window: rgba(255, 255, 255, 0.92);
+            --bg-window-bar: rgba(0, 0, 0, 0.03);
+            --bg-tag: rgba(0, 0, 0, 0.06);
+            --bg-bar-track: rgba(0, 0, 0, 0.06);
+            --text-primary: #1d1d1f;
+            --text-secondary: rgba(0, 0, 0, 0.5);
+            --text-tertiary: rgba(0, 0, 0, 0.35);
+            --text-dim: rgba(0, 0, 0, 0.4);
+            --text-very-dim: rgba(0, 0, 0, 0.2);
+            --border-subtle: rgba(0, 0, 0, 0.08);
+            --border-hover: rgba(0, 0, 0, 0.15);
+            --border-resize: rgba(0, 0, 0, 0.2);
+            --shadow-window: 0 8px 32px rgba(0, 0, 0, 0.1);
+            --accent-gold: #B8941E;
+            --accent-green: #16a34a;
+            --accent-red: #dc2626;
+            --accent-blue: #2563eb;
+            --grid-line: rgba(0, 0, 0, 0.05);
+            --chart-text: rgba(0,0,0,0.4);
+            --macro-border: rgba(0,0,0,0.08);
+        }
+
+        /* Theme 3: Gold + Black */
+        [data-theme="gold-black"] {
+            --bg-primary: #0c0a05;
+            --bg-header: rgba(18, 15, 8, 0.95);
+            --bg-window: rgba(20, 17, 10, 0.94);
+            --bg-window-bar: rgba(212, 175, 55, 0.06);
+            --bg-tag: rgba(212, 175, 55, 0.12);
+            --bg-bar-track: rgba(212, 175, 55, 0.08);
+            --text-primary: #f0e6c8;
+            --text-secondary: rgba(212, 175, 55, 0.55);
+            --text-tertiary: rgba(212, 175, 55, 0.4);
+            --text-dim: rgba(212, 175, 55, 0.45);
+            --text-very-dim: rgba(212, 175, 55, 0.25);
+            --border-subtle: rgba(212, 175, 55, 0.1);
+            --border-hover: rgba(212, 175, 55, 0.22);
+            --border-resize: rgba(212, 175, 55, 0.3);
+            --shadow-window: 0 8px 32px rgba(0, 0, 0, 0.6), 0 0 60px rgba(212, 175, 55, 0.03);
+            --accent-gold: #D4AF37;
+            --accent-green: #a3e635;
+            --accent-red: #f87171;
+            --accent-blue: #93c5fd;
+            --grid-line: rgba(212, 175, 55, 0.04);
+            --chart-text: rgba(212,175,55,0.3);
+            --macro-border: rgba(212,175,55,0.1);
+        }
+
+        /* Theme 4: Light Blue + White */
+        [data-theme="blue-white"] {
+            --bg-primary: #eef4fb;
+            --bg-header: rgba(224, 237, 252, 0.95);
+            --bg-window: rgba(255, 255, 255, 0.92);
+            --bg-window-bar: rgba(59, 130, 246, 0.05);
+            --bg-tag: rgba(59, 130, 246, 0.1);
+            --bg-bar-track: rgba(59, 130, 246, 0.08);
+            --text-primary: #1e293b;
+            --text-secondary: rgba(30, 41, 59, 0.55);
+            --text-tertiary: rgba(30, 41, 59, 0.4);
+            --text-dim: rgba(30, 41, 59, 0.45);
+            --text-very-dim: rgba(30, 41, 59, 0.25);
+            --border-subtle: rgba(59, 130, 246, 0.12);
+            --border-hover: rgba(59, 130, 246, 0.25);
+            --border-resize: rgba(59, 130, 246, 0.3);
+            --shadow-window: 0 8px 32px rgba(59, 130, 246, 0.08);
+            --accent-gold: #d97706;
+            --accent-green: #16a34a;
+            --accent-red: #dc2626;
+            --accent-blue: #2563eb;
+            --grid-line: rgba(59, 130, 246, 0.06);
+            --chart-text: rgba(30,41,59,0.4);
+            --macro-border: rgba(59,130,246,0.1);
+        }
+
+        /* Theme 5: Purple + White */
+        [data-theme="purple-white"] {
+            --bg-primary: #f3eef8;
+            --bg-header: rgba(237, 226, 252, 0.95);
+            --bg-window: rgba(255, 255, 255, 0.92);
+            --bg-window-bar: rgba(139, 92, 246, 0.05);
+            --bg-tag: rgba(139, 92, 246, 0.1);
+            --bg-bar-track: rgba(139, 92, 246, 0.08);
+            --text-primary: #1e1b2e;
+            --text-secondary: rgba(30, 27, 46, 0.55);
+            --text-tertiary: rgba(30, 27, 46, 0.4);
+            --text-dim: rgba(30, 27, 46, 0.45);
+            --text-very-dim: rgba(30, 27, 46, 0.25);
+            --border-subtle: rgba(139, 92, 246, 0.12);
+            --border-hover: rgba(139, 92, 246, 0.25);
+            --border-resize: rgba(139, 92, 246, 0.3);
+            --shadow-window: 0 8px 32px rgba(139, 92, 246, 0.08);
+            --accent-gold: #d97706;
+            --accent-green: #16a34a;
+            --accent-red: #dc2626;
+            --accent-blue: #7c3aed;
+            --grid-line: rgba(139, 92, 246, 0.06);
+            --chart-text: rgba(30,27,46,0.4);
+            --macro-border: rgba(139,92,246,0.1);
+        }
+
+        /* ==========================================
+           BASE STYLES (using CSS variables)
+           ========================================== */
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+            min-height: 100vh;
+            overflow: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* ---- Header ---- */
+        .hdr {
+            height: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            border-bottom: 1px solid var(--border-subtle);
+            background: var(--bg-header);
+            position: relative;
+            z-index: 9999;
+            user-select: none;
+            transition: background 0.4s ease, border-color 0.4s ease;
+        }
+
+        .hdr-title {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+        }
+
+        .hdr-title span {
+            color: var(--accent-gold);
+        }
+
+        .hdr-right {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .hdr-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+        }
+
+        .hdr-label {
+            font-size: 10px;
+            color: var(--text-tertiary);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-family: "SF Mono", monospace;
+        }
+
+        /* ---- Theme Picker ---- */
+        .theme-picker {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            background: var(--bg-window-bar);
+            border: 1px solid var(--border-subtle);
+            transition: all 0.3s ease;
+        }
+
+        .theme-picker:hover {
+            border-color: var(--border-hover);
+        }
+
+        .theme-picker-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-tertiary);
+            font-family: "SF Mono", monospace;
+            margin-right: 4px;
+        }
+
+        .theme-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all 0.25s ease;
+            position: relative;
+        }
+
+        .theme-dot:hover {
+            transform: scale(1.25);
+        }
+
+        .theme-dot.active {
+            border-color: var(--text-primary);
+            transform: scale(1.15);
+            box-shadow: 0 0 8px rgba(255, 255, 255, 0.15);
+        }
+
+        .theme-dot[data-theme-id="dark"] {
+            background: linear-gradient(135deg, #1a1a1d, #333);
+        }
+        .theme-dot[data-theme-id="light"] {
+            background: linear-gradient(135deg, #f5f5f7, #ddd);
+        }
+        .theme-dot[data-theme-id="gold-black"] {
+            background: linear-gradient(135deg, #D4AF37, #1a1a0a);
+        }
+        .theme-dot[data-theme-id="blue-white"] {
+            background: linear-gradient(135deg, #60a5fa, #f0f7ff);
+        }
+        .theme-dot[data-theme-id="purple-white"] {
+            background: linear-gradient(135deg, #8b5cf6, #f3eef8);
+        }
+
+        /* ---- Floating Window ---- */
+        .win {
+            position: absolute;
+            display: flex;
+            flex-direction: column;
+            min-width: 200px;
+            min-height: 120px;
+            border-radius: 10px;
+            border: 1px solid var(--border-subtle);
+            background: var(--bg-window);
+            backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-window);
+            overflow: hidden;
+            transition: background 0.4s ease, border-color 0.3s ease, box-shadow 0.4s ease;
+        }
+
+        .win:hover {
+            border-color: var(--border-hover);
+        }
+
+        .win-bar {
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 12px;
+            background: var(--bg-window-bar);
+            cursor: grab;
+            user-select: none;
+            flex-shrink: 0;
+            transition: background 0.4s ease;
+        }
+
+        .win-bar:active {
+            cursor: grabbing;
+        }
+
+        .win-title {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .win-tag {
+            font-size: 8px;
+            padding: 1px 5px;
+            background: var(--bg-tag);
+            border-radius: 3px;
+            color: var(--text-dim);
+            margin-left: 6px;
+        }
+
+        .win-body {
+            flex: 1;
+            padding: 14px;
+            overflow: auto;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .win-resize {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16px;
+            height: 16px;
+            cursor: nwse-resize;
+            opacity: 0;
+        }
+
+        .win:hover .win-resize {
+            opacity: 1;
+        }
+
+        .win-resize::after {
+            content: '';
+            position: absolute;
+            bottom: 3px;
+            right: 3px;
+            width: 8px;
+            height: 8px;
+            border-right: 2px solid var(--border-resize);
+            border-bottom: 2px solid var(--border-resize);
+        }
+
+        /* ---- Colors ---- */
+        .c-green {
+            color: var(--accent-green);
+        }
+
+        .c-red {
+            color: var(--accent-red);
+        }
+
+        .c-blue {
+            color: var(--accent-blue);
+        }
+
+        .c-gold {
+            color: var(--accent-gold);
+        }
+
+        .c-dim {
+            color: var(--text-dim);
+        }
+
+        /* ---- Metrics ---- */
+        .metric {
+            font-variant-numeric: tabular-nums;
+        }
+
+        .row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 5px 0;
+        }
+
+        .row-label {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .row-val {
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .divider {
+            height: 1px;
+            background: var(--border-subtle);
+            margin: 6px 0;
+        }
+
+        .signal-text {
+            font-size: 44px;
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1;
+        }
+
+        .bar-track {
+            width: 100%;
+            height: 5px;
+            background: var(--bg-bar-track);
+            border-radius: 99px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 99px;
+            transition: width 0.5s ease-out;
+        }
+
+        .dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .dot-g {
+            background: var(--accent-green);
+            box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
+        }
+
+        .dot-r {
+            background: var(--accent-red);
+            box-shadow: 0 0 8px rgba(239, 68, 68, 0.5);
+        }
+
+        .depth-tbl {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 11px;
+        }
+
+        .depth-tbl th {
+            font-size: 9px;
+            color: var(--text-very-dim);
+            text-transform: uppercase;
+            padding-bottom: 5px;
+            font-weight: 400;
+            text-align: left;
+        }
+
+        .depth-tbl td {
+            padding: 2px 0;
+        }
+
+        .macro-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            text-align: center;
+            gap: 4px;
+        }
+
+        .macro-label {
+            font-size: 9px;
+            color: var(--text-tertiary);
+            margin-bottom: 3px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .macro-val {
+            font-size: 15px;
+            font-weight: 500;
+        }
+
+        .timer-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 4px 0;
+        }
+
+        .timer-event {
+            font-size: 11px;
+            color: var(--text-secondary);
+        }
+
+        .timer-val {
+            font-size: 12px;
+            font-weight: 600;
+            font-family: "SF Mono", monospace;
+        }
+    </style>
+</head>
+
+<body data-theme="dark">
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+
+        const { useState, useEffect, useRef, useCallback } = React;
+
+        /* ==========================================
+           DRAGGABLE + RESIZABLE WINDOW COMPONENT
+           ========================================== */
+
+        let topZ = 10;
+
+        function FloatingWindow({ id, title, tag, initX, initY, initW, initH, children }) {
+            const [pos, setPos] = useState({ x: initX, y: initY });
+            const [size, setSize] = useState({ w: initW, h: initH });
+            const [z, setZ] = useState(topZ);
+            const dragging = useRef(false);
+            const resizing = useRef(false);
+            const offset = useRef({ x: 0, y: 0 });
+            const startSize = useRef({ w: 0, h: 0 });
+            const startMouse = useRef({ x: 0, y: 0 });
+            const elRef = useRef();
+
+            const bringFront = () => { topZ++; setZ(topZ); };
+
+            const onDragStart = (e) => {
+                dragging.current = true;
+                offset.current = { x: e.clientX - pos.x, y: e.clientY - pos.y };
+                bringFront();
+                e.preventDefault();
+            };
+
+            const onResizeStart = (e) => {
+                resizing.current = true;
+                startSize.current = { w: size.w, h: size.h };
+                startMouse.current = { x: e.clientX, y: e.clientY };
+                bringFront();
+                e.preventDefault();
+                e.stopPropagation();
+            };
+
+            useEffect(() => {
+                const onMove = (e) => {
+                    if (dragging.current) {
+                        setPos({ x: e.clientX - offset.current.x, y: e.clientY - offset.current.y });
+                    }
+                    if (resizing.current) {
+                        const dw = e.clientX - startMouse.current.x;
+                        const dh = e.clientY - startMouse.current.y;
+                        setSize({ w: Math.max(200, startSize.current.w + dw), h: Math.max(120, startSize.current.h + dh) });
+                    }
+                };
+                const onUp = () => { dragging.current = false; resizing.current = false; };
+                window.addEventListener('mousemove', onMove);
+                window.addEventListener('mouseup', onUp);
+                return () => { window.removeEventListener('mousemove', onMove); window.removeEventListener('mouseup', onUp); };
+            }, []);
+
+            return (
+                <div ref={elRef} className="win" style={{ left: pos.x, top: pos.y, width: size.w, height: size.h, zIndex: z }} onMouseDown={bringFront}>
+                    <div className="win-bar" onMouseDown={onDragStart}>
+                        <div style={{ display: 'flex', alignItems: 'center' }}>
+                            <span className="win-title">{title}</span>
+                            {tag && <span className="win-tag">{tag}</span>}
+                        </div>
+                    </div>
+                    <div className="win-body">{children}</div>
+                    <div className="win-resize" onMouseDown={onResizeStart}></div>
+                </div>
+            );
+        }
+
+        /* ==========================================
+           DATA FEED
+           ========================================== */
+
+        function useDataFeed() {
+            const [d, setD] = useState({
+                price: 61.50, prevPrice: 61.50, signal: "HOLD", confidence: 65, mahal: 3.0,
+                regime: "Sideways", apiOk: true, dataFresh: true, safeMode: false,
+                slippage7d: -0.038,
+                usdInr: 83.50, usdInrDelta: 0, nifty: 22400, niftyDelta: 0,
+                mcxGold: 72350, parkinson: 1.2,
+                bids: [{ p: 61.48, v: 800 }, { p: 61.45, v: 1200 }, { p: 61.42, v: 3500 }, { p: 61.38, v: 6000 }, { p: 61.35, v: 4200 }],
+                asks: [{ p: 61.52, v: 600 }, { p: 61.55, v: 900 }, { p: 61.58, v: 2100 }, { p: 61.62, v: 4800 }, { p: 61.65, v: 3500 }],
+                spread: 0.04,
+            });
+
+            useEffect(() => {
+                const iv = setInterval(() => {
+                    setD(prev => {
+                        let price = prev.price + (Math.random() - 0.5) * 0.1;
+                        let conf = Math.min(100, Math.max(0, prev.confidence + (Math.random() - 0.5) * 10));
+                        let mahal = Math.max(0.5, prev.mahal + (Math.random() - 0.5) * 0.5);
+                        let signal = "HOLD";
+                        if (conf > 85 && mahal < 5) signal = "BUY";
+                        if (conf < 20 && mahal < 5) signal = "SELL";
+                        if (mahal > 6) { signal = "BLOCKED"; conf = 0; }
+                        const regArr = ["Trend", "Sideways", "Volatile"];
+                        let regime = Math.random() > 0.92 ? regArr[Math.floor(Math.random() * 3)] : prev.regime;
+                        let usdInr = +(prev.usdInr + (Math.random() - 0.5) * 0.08).toFixed(2);
+                        let nifty = Math.round(prev.nifty + (Math.random() - 0.5) * 12);
+                        let bids = Array(5).fill(0).map((_, i) => ({ p: +(price - 0.02 * (i + 1)).toFixed(2), v: Math.floor(200 + Math.random() * 6000) }));
+                        let asks = Array(5).fill(0).map((_, i) => ({ p: +(price + 0.02 * (i + 1)).toFixed(2), v: Math.floor(200 + Math.random() * 6000) }));
+                        let spread = +(asks[0].p - bids[0].p).toFixed(3);
+                        return {
+                            price: +price.toFixed(2), prevPrice: prev.price, signal, confidence: Math.round(conf),
+                            mahal: +mahal.toFixed(2), regime,
+                            apiOk: Math.random() > 0.04, dataFresh: Math.random() > 0.06, safeMode: mahal > 6,
+                            slippage7d: +(prev.slippage7d + (Math.random() - 0.5) * 0.005).toFixed(3),
+                            usdInr, usdInrDelta: +(usdInr - prev.usdInr).toFixed(3),
+                            nifty, niftyDelta: nifty - prev.nifty,
+                            mcxGold: Math.round(prev.mcxGold + (Math.random() - 0.5) * 20),
+                            parkinson: +Math.max(0.4, prev.parkinson + (Math.random() - 0.5) * 0.15).toFixed(2),
+                            bids, asks, spread
+                        };
+                    });
+                }, 1500);
+                return () => clearInterval(iv);
+            }, []);
+            return d;
+        }
+
+        /* ==========================================
+           THINK ZONE CARDS
+           ========================================== */
+
+        function AlphaSignal({ data }) {
+            const delta = data.price - data.prevPrice;
+            const cls = data.signal === "BUY" ? "c-gold" : data.signal === "SELL" ? "c-blue" : data.signal === "BLOCKED" ? "c-red" : "c-dim";
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 6 }}>
+                    <div className={`signal-text ${cls}`}>{data.signal}</div>
+                    <div className="metric" style={{ fontSize: 22, fontWeight: 300 }}>
+                        ₹ {data.price.toFixed(2)}
+                        <span style={{ fontSize: 12, marginLeft: 6 }} className={delta >= 0 ? 'c-green' : 'c-red'}>{delta >= 0 ? '▲' : '▼'} {Math.abs(delta).toFixed(3)}</span>
+                    </div>
+                </div>
+            );
+        }
+
+        function ConfidenceGauge({ data }) {
+            const c = data.confidence;
+            const clr = c > 80 ? '#22c55e' : c > 50 ? '#D4AF37' : c > 25 ? '#60a5fa' : '#ef4444';
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', gap: 10 }}>
+                    <div className="metric" style={{ fontSize: 48, fontWeight: 300, color: clr }}>
+                        {c}<span style={{ fontSize: 18, color: 'rgba(255,255,255,0.2)' }}>%</span>
+                    </div>
+                    <div className="bar-track" style={{ maxWidth: 240 }}>
+                        <div className="bar-fill" style={{ width: c + '%', background: `linear-gradient(90deg, rgba(255,255,255,0.1), ${clr})` }}></div>
+                    </div>
+                    <div style={{ fontSize: 10, color: 'rgba(255,255,255,0.3)' }}>
+                        {c > 80 ? 'HIGH CONVICTION' : c > 50 ? 'MODERATE' : c > 25 ? 'LOW SIGNAL' : 'NO EDGE'}
+                    </div>
+                </div>
+            );
+        }
+
+        function AnomalyGate({ data }) {
+            const pct = Math.min(100, (data.mahal / 8) * 100);
+            const safe = data.mahal <= 6.25;
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 6, flex: 1 }}>
+                    <div className="row">
+                        <span className="row-label">Status</span>
+                        <span className={`row-val ${safe ? 'c-green' : 'c-red'}`} style={{ fontWeight: 700 }}>{safe ? '✓ IN-DISTRIBUTION' : '⚠ OUT-OF-DISTRIBUTION'}</span>
+                    </div>
+                    <div className="row">
+                        <span className="row-label">Distance</span>
+                        <span className={`row-val metric ${safe ? 'c-green' : 'c-red'}`}>{data.mahal} / 6.25</span>
+                    </div>
+                    <div className="bar-track" style={{ position: 'relative' }}>
+                        <div style={{ position: 'absolute', left: '78%', top: -2, bottom: -2, width: 2, background: 'rgba(239,68,68,0.5)', zIndex: 1, borderRadius: 2 }}></div>
+                        <div className="bar-fill" style={{ width: pct + '%', background: safe ? '#22c55e' : '#ef4444' }}></div>
+                    </div>
+                    <div className="divider"></div>
+                    <div className="row">
+                        <span className="row-label">Regime</span>
+                        <span className={`row-val ${data.regime === 'Trend' ? 'c-green' : data.regime === 'Volatile' ? 'c-red' : 'c-blue'}`}>{data.regime}</span>
+                    </div>
+                </div>
+            );
+        }
+
+        function SystemIntegrity({ data }) {
+            const slipOk = data.slippage7d > -0.05;
+            return (
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 4, flex: 1 }}>
+                    <div className="row">
+                        <span className="row-label">Kite Connect API</span>
+                        <span><span className={`dot ${data.apiOk ? 'dot-g' : 'dot-r'}`}></span> <span style={{ fontSize: 11 }} className={data.apiOk ? 'c-green' : 'c-red'}>{data.apiOk ? 'Connected' : 'OFFLINE'}</span></span>
+                    </div>
+                    <div className="row">
+                        <span className="row-label">Data Freshness</span>
+                        <span style={{ fontSize: 11 }} className={data.dataFresh ? 'c-green' : 'c-red'}>{data.dataFresh ? 'Live (<2s)' : 'STALE'}</span>
+                    </div>
+                    <div className="row">
+                        <span className="row-label">Safe Mode</span>
+                        <span style={{ fontSize: 11 }} className={data.safeMode ? 'c-red' : 'c-green'}>{data.safeMode ? '⚠ ENGAGED' : 'OFF'}</span>
+                    </div>
+                    <div className="divider"></div>
+                    <div className="row">
+                        <span className="row-label">7d Rolling Slippage</span>
+                        <span className={`row-val metric ${slipOk ? 'c-green' : 'c-red'}`}>{data.slippage7d}%</span>
+                    </div>
+                    <div className="row">
+                        <span className="row-label">Threshold</span>
+                        <span className="row-val metric c-dim">-0.050%</span>
+                    </div>
+                    <div className="bar-track">
+                        <div className="bar-fill" style={{ width: Math.min(100, Math.abs(data.slippage7d) / 0.06 * 100) + '%', background: slipOk ? '#22c55e' : '#ef4444' }}></div>
+                    </div>
+                </div>
+            );
+        }
+
+        /* ==========================================
+           RAW ZONE CARDS
+           ========================================== */
+
+        function DepthLadder({ data }) {
+            return (
+                <div style={{ flex: 1, overflow: 'auto' }}>
+                    <div className="row" style={{ marginBottom: 6 }}>
+                        <span className="row-label">Spread</span>
+                        <span className={`row-val metric ${data.spread < 0.08 ? 'c-green' : 'c-red'}`}>₹{data.spread}</span>
+                    </div>
+                    <table className="depth-tbl">
+                        <thead><tr><th>Bid Qty</th><th>Bid ₹</th><th style={{ textAlign: 'right' }}>Ask ₹</th><th style={{ textAlign: 'right' }}>Ask Qty</th></tr></thead>
+                        <tbody className="metric">
+                            {data.bids.map((b, i) => (
+                                <tr key={i}>
+                                    <td className="c-green" style={{ opacity: 0.7 }}>{b.v}</td>
+                                    <td className="c-green" style={{ fontWeight: 500 }}>{b.p.toFixed(2)}</td>
+                                    <td style={{ textAlign: 'right', fontWeight: 500 }} className="c-red">{data.asks[i].p.toFixed(2)}</td>
+                                    <td style={{ textAlign: 'right', opacity: 0.7 }} className="c-red">{data.asks[i].v}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+
+        function CrossAsset({ data }) {
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div className="macro-grid">
+                        <div>
+                            <div className="macro-label">USD/INR</div>
+                            <div className={`macro-val metric ${data.usdInrDelta >= 0 ? 'c-red' : 'c-green'}`}>{data.usdInr}</div>
+                            <div style={{ fontSize: 10, marginTop: 2 }} className={data.usdInrDelta >= 0 ? 'c-red' : 'c-green'}>{data.usdInrDelta >= 0 ? '▲' : '▼'} {Math.abs(data.usdInrDelta).toFixed(3)}</div>
+                        </div>
+                        <div style={{ borderLeft: '1px solid rgba(255,255,255,0.06)', borderRight: '1px solid rgba(255,255,255,0.06)' }}>
+                            <div className="macro-label">NIFTY 50</div>
+                            <div className={`macro-val metric ${data.niftyDelta >= 0 ? 'c-green' : 'c-red'}`}>{data.nifty}</div>
+                            <div style={{ fontSize: 10, marginTop: 2 }} className={data.niftyDelta >= 0 ? 'c-green' : 'c-red'}>{data.niftyDelta >= 0 ? '▲' : '▼'} {Math.abs(data.niftyDelta)}</div>
+                        </div>
+                        <div>
+                            <div className="macro-label">MCX Gold</div>
+                            <div className="macro-val metric c-gold">{data.mcxGold}</div>
+                        </div>
+                    </div>
+                    <div className="divider" style={{ margin: '10px 0' }}></div>
+                    <div className="row">
+                        <span className="row-label">Parkinson Volatility</span>
+                        <span className={`row-val metric ${data.parkinson < 1.5 ? 'c-green' : data.parkinson < 2.5 ? 'c-gold' : 'c-red'}`}>{data.parkinson}</span>
+                    </div>
+                </div>
+            );
+        }
+
+        function MacroTimers() {
+            const [now, setNow] = useState(Date.now());
+            useEffect(() => { const iv = setInterval(() => setNow(Date.now()), 1000); return () => clearInterval(iv); }, []);
+
+            const events = [
+                { name: "RBI MPC Decision", date: new Date("2026-06-06T10:00:00+05:30") },
+                { name: "US Fed FOMC", date: new Date("2026-06-18T00:30:00+05:30") },
+                { name: "US CPI Release", date: new Date("2026-05-13T18:00:00+05:30") },
+            ];
+
+            const fmt = (ms) => {
+                if (ms <= 0) return "LIVE";
+                const d = Math.floor(ms / 86400000); const h = Math.floor((ms % 86400000) / 3600000); const m = Math.floor((ms % 3600000) / 60000); const s = Math.floor((ms % 60000) / 1000);
+                return `${d}d ${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            };
+
+            return (
+                <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    {events.map((ev, i) => {
+                        const remaining = ev.date.getTime() - now;
+                        return (
+                            <div className="timer-row" key={i}>
+                                <span className="timer-event">{ev.name}</span>
+                                <span className={`timer-val ${remaining < 86400000 ? 'c-red' : remaining < 604800000 ? 'c-gold' : 'c-blue'}`}>{fmt(remaining)}</span>
+                            </div>
+                        );
+                    })}
+                </div>
+            );
+        }
+
+        /* ==========================================
+           OHLCV CANDLESTICK CHART
+           ========================================== */
+
+        function OHLCVChart({ theme }) {
+            const ref = useRef();
+            const chartRef = useRef(null);
+
+            /* Re-create chart when theme changes so colors update */
+            useEffect(() => {
+                if (!window.LightweightCharts || !ref.current) return;
+                /* Clean up previous chart */
+                if (chartRef.current) { try { chartRef.current.chart.remove(); clearInterval(chartRef.current.iv); chartRef.current.ro.disconnect(); } catch(e){} }
+
+                const cs = getComputedStyle(document.body);
+                const chartTextColor = cs.getPropertyValue('--chart-text').trim() || 'rgba(255,255,255,0.3)';
+                const gridColor = cs.getPropertyValue('--grid-line').trim() || 'rgba(255,255,255,0.03)';
+                const greenColor = cs.getPropertyValue('--accent-green').trim() || '#22c55e';
+                const redColor = cs.getPropertyValue('--accent-red').trim() || '#ef4444';
+
+                const chart = window.LightweightCharts.createChart(ref.current, {
+                    layout: { background: { color: "transparent" }, textColor: chartTextColor },
+                    grid: { vertLines: { color: gridColor }, horzLines: { color: gridColor } },
+                    timeScale: { timeVisible: true, borderVisible: false },
+                    rightPriceScale: { borderVisible: false },
+                });
+
+                const candles = chart.addSeries(window.LightweightCharts.CandlestickSeries, {
+                    upColor: greenColor, downColor: redColor, borderVisible: false, wickUpColor: greenColor, wickDownColor: redColor
+                });
+                const fairLine = chart.addSeries(window.LightweightCharts.LineSeries, {
+                    color: 'rgba(212,175,55,0.5)', lineWidth: 1, lineStyle: 2
+                });
+
+                let cData = [], fData = [], curr = 61.5, time = Math.floor(Date.now() / 1000);
+                for (let i = 0; i < 80; i++) {
+                    let o = curr + (Math.random() - 0.5) * 0.08, c = o + (Math.random() - 0.5) * 0.15;
+                    let h = Math.max(o, c) + Math.random() * 0.08, l = Math.min(o, c) - Math.random() * 0.08;
+                    curr = c;
+                    cData.push({ time: time - (80 - i) * 60, open: o, high: h, low: l, close: c });
+                    fData.push({ time: time - (80 - i) * 60, value: c - 0.03 + (Math.random() - 0.5) * 0.02 });
+                }
+                candles.setData(cData); fairLine.setData(fData);
+
+                const iv = setInterval(() => {
+                    try {
+                        time += 60;
+                        let c = curr + (Math.random() - 0.5) * 0.08;
+                        candles.update({ time, open: curr, high: Math.max(curr, c) + 0.04, low: Math.min(curr, c) - 0.04, close: c });
+                        fairLine.update({ time, value: c - 0.03 + (Math.random() - 0.5) * 0.02 });
+                        curr = c;
+                    } catch (e) { }
+                }, 1500);
+
+                const ro = new ResizeObserver(() => { if (ref.current) chart.applyOptions({ width: ref.current.clientWidth, height: ref.current.clientHeight }); });
+                ro.observe(ref.current);
+
+                chartRef.current = { chart, iv, ro };
+                return () => { clearInterval(iv); ro.disconnect(); chart.remove(); chartRef.current = null; };
+            }, [theme]);
+            return <div ref={ref} style={{ width: '100%', height: '100%', minHeight: 0 }}></div>;
+        }
+
+        /* ==========================================
+           EXECUTION LOG
+           ========================================== */
+
+        function ExecutionLog() {
+            const logs = [
+                { t: "14:32:05", sig: "BUY", conf: 92, gate: "PASS", slip: "-0.02%", lat: "42ms" },
+                { t: "14:26:11", sig: "HOLD", conf: 35, gate: "—", slip: "—", lat: "—" },
+                { t: "14:15:00", sig: "SELL", conf: 88, gate: "FAIL_VOL", slip: "Blocked", lat: "12ms" },
+                { t: "13:55:20", sig: "BUY", conf: 81, gate: "FAIL_SPR", slip: "Blocked", lat: "8ms" },
+                { t: "13:10:05", sig: "SELL", conf: 95, gate: "PASS", slip: "+0.01%", lat: "35ms" },
+            ];
+            return (
+                <div style={{ flex: 1, overflow: 'auto' }}>
+                    <table className="depth-tbl">
+                        <thead><tr><th>Time</th><th>Signal</th><th>Conf</th><th>Gate</th><th style={{ textAlign: 'right' }}>Slippage</th><th style={{ textAlign: 'right' }}>Latency</th></tr></thead>
+                        <tbody className="metric">
+                            {logs.map((l, i) => (
+                                <tr key={i}>
+                                    <td className="c-dim">{l.t}</td>
+                                    <td className={l.sig === 'BUY' ? 'c-green' : l.sig === 'SELL' ? 'c-blue' : 'c-dim'}>{l.sig}</td>
+                                    <td className={l.conf > 80 ? 'c-green' : l.conf > 50 ? 'c-gold' : 'c-red'}>{l.conf}%</td>
+                                    <td className={l.gate === 'PASS' ? 'c-green' : l.gate === '—' ? 'c-dim' : 'c-red'}>{l.gate}</td>
+                                    <td style={{ textAlign: 'right' }} className={l.slip.includes('Block') ? 'c-red' : l.slip.includes('+') ? 'c-green' : 'c-dim'}>{l.slip}</td>
+                                    <td style={{ textAlign: 'right' }} className="c-dim">{l.lat}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
+            );
+        }
+
+        /* ==========================================
+           APP — F-PATTERN WINDOWED LAYOUT
+           ========================================== */
+
+        /* ==========================================
+           THEME PICKER COMPONENT
+           ========================================== */
+
+        const THEMES = [
+            { id: 'dark',         label: 'Dark' },
+            { id: 'light',        label: 'Light' },
+            { id: 'gold-black',   label: 'Gold + Black' },
+            { id: 'blue-white',   label: 'Light Blue' },
+            { id: 'purple-white', label: 'Purple' },
+        ];
+
+        function ThemePicker({ current, onChange }) {
+            return (
+                <div className="theme-picker">
+                    <span className="theme-picker-label">Theme</span>
+                    {THEMES.map(t => (
+                        <div
+                            key={t.id}
+                            className={`theme-dot ${current === t.id ? 'active' : ''}`}
+                            data-theme-id={t.id}
+                            title={t.label}
+                            onClick={() => onChange(t.id)}
+                        />
+                    ))}
+                </div>
+            );
+        }
+
+        function App() {
+            const data = useDataFeed();
+            const [liveOk, setLiveOk] = useState(true);
+            const [theme, setTheme] = useState(() => localStorage.getItem('gold-etf-theme') || 'dark');
+
+            useEffect(() => { setLiveOk(data.apiOk); }, [data.apiOk]);
+
+            const handleThemeChange = useCallback((newTheme) => {
+                setTheme(newTheme);
+                document.body.setAttribute('data-theme', newTheme);
+                localStorage.setItem('gold-etf-theme', newTheme);
+            }, []);
+
+            /* Apply saved theme on mount */
+            useEffect(() => {
+                document.body.setAttribute('data-theme', theme);
+            }, []);
+
+            return (
+                <div>
+                    <div className="hdr">
+                        <div className="hdr-title">Alpha <span>BeES</span> · Command Center</div>
+                        <div className="hdr-right">
+                            <ThemePicker current={theme} onChange={handleThemeChange} />
+                            <span className="hdr-dot" style={{ background: liveOk ? '#22c55e' : '#ef4444', boxShadow: liveOk ? '0 0 8px rgba(34,197,94,0.5)' : '0 0 8px rgba(239,68,68,0.5)' }}></span>
+                            <span className="hdr-label">{liveOk ? 'Live' : 'Disconnected'}</span>
+                        </div>
+                    </div>
+
+                    {/* ---- THINK ZONE (Left, Top of F) ---- */}
+                    <FloatingWindow id="signal" title="Alpha Signal" tag="XGB" initX={16} initY={60} initW={280} initH={220}>
+                        <AlphaSignal data={data} />
+                    </FloatingWindow>
+
+                    <FloatingWindow id="confidence" title="Calibrated Confidence" tag="PLATT" initX={16} initY={290} initW={280} initH={200}>
+                        <ConfidenceGauge data={data} />
+                    </FloatingWindow>
+
+                    <FloatingWindow id="anomaly" title="Mahalanobis Anomaly Gate" tag="SAFETY" initX={306} initY={60} initW={300} initH={220}>
+                        <AnomalyGate data={data} />
+                    </FloatingWindow>
+
+                    <FloatingWindow id="integrity" title="System Integrity" tag="SYS" initX={306} initY={290} initW={300} initH={250}>
+                        <SystemIntegrity data={data} />
+                    </FloatingWindow>
+
+                    {/* ---- RAW ZONE (Right, Center of F) ---- */}
+                    <FloatingWindow id="chart" title="OHLCV + Fair Value" tag="1min" initX={620} initY={60} initW={720} initH={380}>
+                        <OHLCVChart theme={theme} />
+                    </FloatingWindow>
+
+                    <FloatingWindow id="depth" title="Liquidity Depth" tag="L2" initX={16} initY={550} initW={320} initH={240}>
+                        <DepthLadder data={data} />
+                    </FloatingWindow>
+
+                    <FloatingWindow id="cross" title="Cross-Asset & Volatility" tag="MACRO" initX={346} initY={550} initW={360} initH={240}>
+                        <CrossAsset data={data} />
+                    </FloatingWindow>
+
+                    <FloatingWindow id="timers" title="Macro Event Timers" tag="EVENTS" initX={716} initY={450} initW={310} initH={170}>
+                        <MacroTimers />
+                    </FloatingWindow>
+
+                    <FloatingWindow id="log" title="Execution Telemetry" tag="LOG" initX={1036} initY={450} initW={300} initH={240}>
+                        <ExecutionLog />
+                    </FloatingWindow>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+        root.render(<App />);
+
+    </script>
+</body>
+
+</html>
